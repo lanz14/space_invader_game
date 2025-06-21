@@ -146,6 +146,11 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
+    def display_lives(self):
+        for live in range(self.lives - 1):
+            x = self.live_x_start_pos + (live * (self.live_surf.get_size()[0] + 10))
+            screen.blit(self.live_surf,(x,8))
+
     def run(self):
         self.player.draw(self.screen)
         self.player.update()
