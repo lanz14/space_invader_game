@@ -36,10 +36,21 @@ class Game:
                     y = y_start + row_index * self.block_size
                     block = obstacle.Block(self.block_size,(241,79,80),x,y)
                     self.blocks.add(block)
-                    
+
     def create_multiple_obstacles(self,*offset,x_start,y_start):
         for offset_x in offset:
             self.create_obstacle(x_start,y_start,offset_x)
+
+    def alien_setup(self,rows,cols,x_distance = 60,y_distance = 48,x_offset = 70, y_offset = 100):
+        for row_index, row in enumerate(range(rows)):
+            for col_index, col in enumerate(range(cols)):
+                x = col_index * x_distance + x_offset
+                y = row_index * y_distance + y_offset
+				
+                if row_index == 0: alien_sprite = Alien('yellow',x,y)
+                elif 1 <= row_index <= 2: alien_sprite = Alien('green',x,y)
+                else: alien_sprite = Alien('red',x,y)
+                self.aliens.add(alien_sprite)
 
     def run(self):
         self.player.draw(self.screen)
