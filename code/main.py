@@ -94,6 +94,12 @@ class Game:
             self.alien_lasers.add(laser_sprite)
             self.laser_sound.play()
 
+    def extra_alien_timer(self):
+        self.extra_spawn_time -= 1
+        if self.extra_spawn_time <= 0:
+            self.extra.add(Extra(choice(['right','left']),screen_width))
+            self.extra_spawn_time = randint(400,800)
+
     def run(self):
         self.player.draw(self.screen)
         self.player.update()
