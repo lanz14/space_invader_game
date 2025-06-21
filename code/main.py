@@ -4,7 +4,7 @@ from player import Player
 class Game:
     def __init__(self, screen):
         self.screen = screen
-        player_sprite = Player((300,300))
+        player_sprite = Player((screen_width / 2,screen_height))
         self.player = pygame.sprite.GroupSingle(player_sprite)
 
     def run(self):
