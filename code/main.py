@@ -15,10 +15,10 @@ class Game:
 
     	# health and score setup
         self.lives = 3
-        self.live_surf = pygame.image.load('/graphics/player.png').convert_alpha()
+        self.live_surf = pygame.image.load('graphics/player.png').convert_alpha()
         self.live_x_start_pos = screen_width - (self.live_surf.get_size()[0] * 2 + 20)
         self.score = 0
-        self.font = pygame.font.Font('/font/Pixeled.ttf',20)
+        self.font = pygame.font.Font('font/Pixeled.ttf',20)
 
         # Obstacle setup
         self.shape = obstacle.shape
@@ -36,6 +36,10 @@ class Game:
                     y = y_start + row_index * self.block_size
                     block = obstacle.Block(self.block_size,(241,79,80),x,y)
                     self.blocks.add(block)
+                    
+    def create_multiple_obstacles(self,*offset,x_start,y_start):
+        for offset_x in offset:
+            self.create_obstacle(x_start,y_start,offset_x)
 
     def run(self):
         self.player.draw(self.screen)
