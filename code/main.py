@@ -2,15 +2,16 @@ import pygame, sys
 from player import Player
 
 class Game:
-    def __init__(self, screen):
+    def __init__(self, screen, screen_width, screen_height):
         self.screen = screen
-        player_sprite = Player((screen_width / 2,screen_height))
+        self.screen_width = screen_width
+        self.screen_height = screen_height
+        player_sprite = Player((screen_width / 2, screen_height))
         self.player = pygame.sprite.GroupSingle(player_sprite)
 
     def run(self):
         self.player.draw(self.screen)
-        # update all sprite groups
-        # draw all sprite groups
+        self.player.update()
 
 if __name__ == "__main__":
     pygame.init()
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     screen = pygame.display.set_mode((screen_width, screen_height))
     clock = pygame.time.Clock()
 
-    game = Game(screen)
+    game = Game(screen, screen_width, screen_height)
 
     while True:
         for event in pygame.event.get():
