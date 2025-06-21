@@ -28,6 +28,26 @@ class Game:
         self.obstacle_x_positions = [num * (screen_width / self.obstacle_amount) for num in range(self.obstacle_amount)]
         self.create_multiple_obstacles(*self.obstacle_x_positions, x_start = screen_width / 15, y_start = 480)
 
+        # Alien setup
+        self.aliens = pygame.sprite.Group()
+        self.alien_lasers = pygame.sprite.Group()
+        self.alien_setup(rows = 6, cols = 8)
+        self.alien_direction = 1
+
+        # Extra setup
+        self.extra = pygame.sprite.GroupSingle()
+        self.extra_spawn_time = randint(40,80)
+
+        # Audio
+        music = pygame.mixer.Sound('audio/music.wav')
+        music.set_volume(0.2)
+        music.play(loops = -1)
+        self.laser_sound = pygame.mixer.Sound('audio/laser.wav')
+        self.laser_sound.set_volume(0.5)
+        self.explosion_sound = pygame.mixer.Sound('audio/explosion.wav')
+        self.explosion_sound.set_volume(0.3)
+
+
     def create_obstacle(self, x_start, y_start,offset_x):
         for row_index, row in enumerate(self.shape):
             for col_index,col in enumerate(row):
@@ -66,6 +86,13 @@ class Game:
         if self.aliens:
             for alien in self.aliens.sprites():
                 alien.rect.y += distance
+
+    def alien_shoot(self):
+        if self.aliens.sprites():
+            random_alien = choice(self.aliens.sprites())
+            laser_sprite = Laser(random_alien.rect.center,6,screen_height)
+            self.alien_lasers.add(laser_sprite)
+            self.laser_sound.play()
 
     def run(self):
         self.player.draw(self.screen)
